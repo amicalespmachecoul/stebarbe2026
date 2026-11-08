@@ -1,0 +1,260 @@
+
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071b3a">
+  <title>Événement de l'Amicale</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main>
+
+    <!-- PAGE MOT DE PASSE -->
+    <section id="access-screen" class="access-screen" aria-labelledby="access-title">
+
+      <div class="embroidered-motifs" aria-hidden="true">
+        <img class="motif helmet motif-01" src="images/brod-casque.png" alt="">
+        <img class="motif flame motif-02" src="images/brod-feu1.png" alt="">
+        <img class="motif truck motif-03" src="images/brod-camion.png" alt="">
+        <img class="motif flame motif-04" src="images/brod-feu2.png" alt="">
+        <img class="motif hose motif-05" src="images/brod-tuyau.png" alt="">
+        <img class="motif flame motif-06" src="images/brod-feu1.png" alt="">
+        <img class="motif hose motif-07" src="images/brod-tuyau.png" alt="">
+        <img class="motif truck motif-08" src="images/brod-camion.png" alt="">
+        <img class="motif flame motif-09" src="images/brod-feu1.png" alt="">
+        <img class="motif helmet motif-10" src="images/brod-casque.png" alt="">
+        <img class="motif hose motif-11" src="images/brod-tuyau.png" alt="">
+        <img class="motif flame motif-12" src="images/brod-feu2.png" alt="">
+      </div>
+
+      <div class="access-content">
+
+        <img
+          src="images/brod-amicale.png"
+          alt="Logo de l'amicale"
+          class="access-logo"
+        >
+
+        <div class="access-band">
+          <img
+            src="images/brod-texte.png"
+            alt="Saisissez le code d'accès"
+            class="brod-texte"
+          >
+        </div>
+
+        <form id="access-form" class="access-form">
+          <label class="sr-only" for="access-code">Mot de passe</label>
+
+          <input
+            id="access-code"
+            type="password"
+            autocomplete="off"
+            placeholder="Mot de passe"
+            required
+          >
+
+          <button type="submit" class="access-button">
+            <img src="images/brod-valid.png" alt="Accéder">
+          </button>
+
+          <p
+            id="access-error"
+            class="access-error"
+            role="alert"
+            aria-live="polite"
+          ></p>
+        </form>
+
+      </div>
+
+      <p class="access-footnote">Accès réservé aux invités</p>
+    </section>
+
+
+    <!-- PAGE ÉVÉNEMENT -->
+    <section id="event-screen" class="event-screen" hidden>
+
+      <div class="embroidered-motifs" aria-hidden="true">
+        <img class="motif helmet motif-01" src="images/brod-casque.png" alt="">
+        <img class="motif flame motif-02" src="images/brod-feu1.png" alt="">
+        <img class="motif truck motif-03" src="images/brod-camion.png" alt="">
+        <img class="motif flame motif-04" src="images/brod-feu2.png" alt="">
+        <img class="motif hose motif-05" src="images/brod-tuyau.png" alt="">
+        <img class="motif flame motif-06" src="images/brod-feu1.png" alt="">
+        <img class="motif hose motif-07" src="images/brod-tuyau.png" alt="">
+        <img class="motif truck motif-08" src="images/brod-camion.png" alt="">
+        <img class="motif flame motif-09" src="images/brod-feu1.png" alt="">
+        <img class="motif helmet motif-10" src="images/brod-casque.png" alt="">
+        <img class="motif hose motif-11" src="images/brod-tuyau.png" alt="">
+        <img class="motif flame motif-12" src="images/brod-feu2.png" alt="">
+      </div>
+
+      <header class="event-header">
+
+        <img
+          id="amicale-logo"
+          class="amicale-logo"
+          src="images/brod-amicale.png"
+          alt="Logo de l'amicale"
+        >
+
+        <h1 id="event-title">Nom de l’événement</h1>
+        <p id="event-date" class="event-date">Date de l’événement</p>
+
+      </header>
+
+
+      <!-- CARTES -->
+      <div class="cards">
+
+        <!-- MENU -->
+        <section class="event-card" aria-labelledby="menu-heading">
+
+          <h2 id="menu-heading" class="card-heading">
+            <span>en</span>
+          </h2>
+
+          <div class="menu-items">
+
+  <div class="menu-item">
+  <h3>Entrée</h3>
+  <p>Assiette Terre &amp; Mer</p>
+  <p>Éventail de magret de canard fumé &amp; saumon fumé maison, crème ciboulette</p>
+  <p class="vegetarian-option">
+    Menu végétarien : Tarte fine de légumes provençaux, tomates séchées, copeaux de parmesan et herbes fraîches
+  </p>
+</div>
+
+  <img src="images/ligne.png" alt="" class="menu-separator">
+
+  <div class="menu-item">
+  <h3>Poisson</h3>
+  <p>Papillote de rouget &amp; ses petits légumes de saison</p>
+  <p class="vegetarian-option">
+    Menu végétarien : Brochette d'artichaut aux 2 carottes, crème d'échalote truffée
+  </p>
+</div>
+
+  <img src="images/ligne.png" alt="" class="menu-separator">
+
+  <div class="menu-item">
+    <h3>Trou Normand</h3>
+    <p>Sorbet ananas et liqueur Malibu</p>
+  </div>
+
+  <img src="images/ligne.png" alt="" class="menu-separator">
+
+  <div class="menu-item">
+  <h3>Viande</h3>
+  <p>Suprême de volaille au brie truffé &amp; sa pomme de terre farcie</p>
+  <p class="vegetarian-option">
+    Menu végétarien : Croustade aux champignons et sa mini farandole de légumes
+  </p>
+</div>
+
+  <img src="images/ligne.png" alt="" class="menu-separator">
+
+  <div class="menu-item">
+    <h3>Fromage</h3>
+    <p>Assiette de fromages affinés &amp; salade verte</p>
+  </div>
+
+  <img src="images/ligne.png" alt="" class="menu-separator">
+
+  <div class="menu-item">
+    <h3>Dessert</h3>
+    <p>Trilogie sucrée</p>
+    <p>Soupe mandarine, chou craquelin vanille, mousse au chocolat</p>
+  </div>
+
+  <img src="images/ligne.png" alt="" class="menu-separator">
+
+  <div class="menu-item">
+    <h3>Café</h3>
+  </div>
+
+</div>
+        </section>
+
+
+        <!-- ANIMATION -->
+        <section class="event-card" aria-labelledby="animation-heading">
+
+          <h2 id="animation-heading" class="card-heading">
+            <span>nimatio</span>
+          </h2>
+
+          <div class="card-body">
+            <p class="placeholder-strong">Soirée dansante à partir de [heure]</p>
+            <p>Avec [nom de l’orchestre]</p>
+
+            <a class="text-link" href="#" target="_blank" rel="noopener">
+              Découvrir l’orchestre
+            </a>
+          </div>
+
+        </section>
+
+
+        <!-- LIENS -->
+        <section class="event-card" aria-labelledby="links-heading">
+
+          <h2 id="links-heading" class="card-heading">
+            <span>ien</span>
+          </h2>
+
+         <nav class="links-list" aria-label="Liens utiles">
+
+  <a href="#" target="_blank" rel="noopener">
+    <img src="images/logo-fb.png" alt="Facebook">
+    <span>Facebook de l'Amicale</span>
+  </a>
+
+  <a href="#" target="_blank" rel="noopener">
+    <img src="images/logo-insta.png" alt="Instagram">
+    <span>Instagram de l'Amicale</span>
+  </a>
+
+  <a href="#" target="_blank" rel="noopener">
+    <img src="images/logo-odp.png" alt="Œuvre des Pupilles">
+    <span>Œuvre des Pupilles</span>
+  </a>
+
+  <a href="#" target="_blank" rel="noopener">
+    <img src="images/logo-traiteur.png" alt="Traiteur">
+    <span>Le traiteur</span>
+  </a>
+
+<a href="#" target="_blank" rel="noopener">
+  <img src="images/logo-dj.png" alt="DJ">
+  <span>Notre DJ</span>
+</a>
+
+</nav>
+
+        </section>
+
+      </div>
+
+
+      <!-- PIED DE PAGE -->
+      <footer class="event-footer">
+        Au plaisir de vous retrouver !
+      </footer>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
