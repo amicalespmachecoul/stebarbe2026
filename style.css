@@ -1,4 +1,3 @@
-
 /* =========================
    POLICES
 ========================= */
@@ -6,43 +5,47 @@
 @font-face {
   font-family: 'Hello';
   src: url('fonts/Hello.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Champagne';
   src: url('fonts/Champagne & Limousines Italic.ttf') format('truetype');
-  font-weight: normal;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Magnolia';
-  src: url('./fonts/Magnolia.otf') format('opentype');
-  font-weight: 400;
+  font-family: 'Champagne Droit';
+  src: url('fonts/Champagne & Limousines.ttf') format('truetype');
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Magnolia';
+  src: url('fonts/Magnolia.otf') format('opentype');
   font-display: swap;
 }
 
 
 /* =========================
-   COULEURS ET VARIABLES
+   VARIABLES
 ========================= */
 
 :root {
   --navy: #071b3a;
   --navy-deep: #041329;
-  --red: #B81728;
+  --red: #9b2722;
+  --red-band: var(--red);
   --gold: #c6a45a;
   --cream: #f1eadb;
-  --ink: #654A32;
-  --silver: #d8d9dc;
+  --ink: #5a4029;
+  --veggie: #7a561a; /* or foncé : contraste suffisant sur fond crème */
 
   --script: 'Hello', cursive;
-  --body: 'Champagne', sans-serif;
+  --body: 'Champagne', Georgia, serif;
+  --title: 'Magnolia', Georgia, serif;
 }
 
 
@@ -50,7 +53,9 @@
    BASE
 ========================= */
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -59,32 +64,76 @@
 }
 
 html {
-  min-height: 100%;
   background: var(--navy-deep);
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100svh;
   color: var(--cream);
   font-family: var(--body);
-  background-color: var(--navy);
-  background-image:
-    linear-gradient(rgba(4, 19, 41, 0.28), rgba(4, 19, 41, 0.28)),
-    url("images/fond-polo.png");
-  background-repeat: repeat;
-  background-size: auto, 600px 600px;
-  background-attachment: fixed;
+  background: transparent;
+}
+
+/* Fond fixe : pseudo-élément (background-attachment: fixed est bancal sur iOS) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, .35)),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .035) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, .12) 0 1px, transparent 1px 3px),
+    linear-gradient(rgba(4, 19, 41, .28), rgba(4, 19, 41, .28)),
+    url('images/fond-polo.png') repeat 0 0 / 600px 600px,
+    var(--navy);
 }
 
 main {
-  min-height: 100vh;
   position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+img {
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
+/* Le titre reçoit le focus par programme après la saisie du code : pas de contour */
+#event-title:focus,
+#event-title:focus-visible {
+  outline: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 
 /* =========================
-   BRODERIES COMMUNES
+   BRODERIES (motifs décoratifs)
+   Position : --t (haut), --l / --r (gauche / droite), --a (rotation)
 ========================= */
 
 .embroidered-motifs {
@@ -92,112 +141,59 @@ main {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 1;
 }
 
 .motif {
   position: absolute;
+  top: var(--t);
+  left: var(--l, auto);
+  right: var(--r, auto);
   display: block;
   height: auto;
   object-fit: contain;
-  filter:
-    brightness(1.22)
-    contrast(1.08)
-    drop-shadow(1px 2px 2px rgba(0,0,0,.35));
+  transform: rotate(var(--a, 0deg));
+  filter: brightness(1.22) contrast(1.08) drop-shadow(1px 2px 2px rgba(0, 0, 0, .35));
 }
 
-.helmet {
-  width: clamp(36px, 10vw, 51px);
-}
+/* Tailles : page d'accès */
+.helmet { width: clamp(36px, 10vw, 51px); }
+.flame  { width: clamp(31px, 8vw, 43px); }
+.truck  { width: clamp(48px, 12vw, 64px); }
+.hose   { width: clamp(39px, 10vw, 53px); }
 
-.flame {
-  width: clamp(31px, 8vw, 43px);
-}
+/* Tailles : page événement (plus discrètes) */
+#event-screen .helmet { width: clamp(32px, 8.5vw, 42px); }
+#event-screen .flame  { width: clamp(28px, 7.5vw, 36px); }
+#event-screen .truck  { width: clamp(38px, 9.5vw, 48px); }
+#event-screen .hose   { width: clamp(32px, 8.5vw, 42px); }
 
-.truck {
-  width: clamp(48px, 12vw, 64px);
-}
+/* Positions : page d'accès (les motifs 11 et 12 sont masqués pour dégager le formulaire) */
+#access-screen .motif-01 { --t: 5%;  --l: 7%;   --a: -13deg; }
+#access-screen .motif-02 { --t: 12%; --l: 43%;  --a: 5deg; }
+#access-screen .motif-03 { --t: 6%;  --r: 7%;   --a: 3deg; }
+#access-screen .motif-04 { --t: 38%; --l: 5%;   --a: -8deg; }
+#access-screen .motif-05 { --t: 30%; --r: 6%;   --a: 14deg; }
+#access-screen .motif-06 { --t: 55%; --r: 16%;  --a: 12deg; }
+#access-screen .motif-07 { --t: 67%; --l: 6%;   --a: 7deg; }
+#access-screen .motif-08 { --t: 76%; --r: 7%;   --a: -5deg; }
+#access-screen .motif-09 { --t: 88%; --l: 42%;  --a: -20deg; }
+#access-screen .motif-10 { --t: 91%; --r: 12%;  --a: 8deg; }
+#access-screen .motif-11,
+#access-screen .motif-12 { display: none; }
 
-.hose {
-  width: clamp(39px, 10vw, 53px);
-}
-
-
-/* =========================
-   MOTIFS PAGE CONNEXION
-========================= */
-
-#access-screen .motif-01 {
-  top: 5%;
-  left: 7%;
-  transform: rotate(-13deg);
-}
-
-#access-screen .motif-02 {
-  top: 12%;
-  left: 43%;
-  transform: rotate(5deg);
-}
-
-#access-screen .motif-03 {
-  top: 6%;
-  right: 7%;
-  transform: rotate(3deg);
-}
-
-#access-screen .motif-04 {
-  top: 38%;
-  left: 5%;
-  transform: rotate(-8deg);
-}
-
-#access-screen .motif-05 {
-  top: 30%;
-  right: 6%;
-  transform: rotate(14deg);
-}
-
-#access-screen .motif-06 {
-  top: 55%;
-  right: 16%;
-  transform: rotate(12deg);
-}
-
-#access-screen .motif-07 {
-  top: 67%;
-  left: 6%;
-  transform: rotate(7deg);
-}
-
-#access-screen .motif-08 {
-  top: 76%;
-  right: 7%;
-  transform: rotate(-5deg);
-}
-
-#access-screen .motif-09 {
-  top: 88%;
-  left: 42%;
-  transform: rotate(-20deg);
-}
-
-#access-screen .motif-10 {
-  top: 91%;
-  right: 12%;
-  transform: rotate(8deg);
-}
-
-#access-screen .motif-11 {
-  top: 48%;
-  left: 43%;
-  transform: rotate(-10deg);
-}
-
-#access-screen .motif-12 {
-  top: 22%;
-  right: 35%;
-  transform: rotate(9deg);
-}
+/* Positions : page événement */
+#event-screen .motif-01 { --t: 17%; --r: 6%; --a: 14deg; }
+#event-screen .motif-02 { --t: 25%; --l: 4%; --a: -16deg; }
+#event-screen .motif-03 { --t: 35%; --l: 7%; --a: 8deg; }
+#event-screen .motif-04 { --t: 43%; --r: 3%; --a: -12deg; }
+#event-screen .motif-05 { --t: 52%; --r: 8%; --a: 17deg; }
+#event-screen .motif-06 { --t: 61%; --l: 2%; --a: 12deg; }
+#event-screen .motif-07 { --t: 70%; --l: 8%; --a: -18deg; }
+#event-screen .motif-08 { --t: 78%; --r: 4%; --a: -9deg; }
+#event-screen .motif-09 { --t: 86%; --r: 9%; --a: 20deg; }
+#event-screen .motif-10 { --t: 90%; --l: 5%; --a: -11deg; }
+#event-screen .motif-11 { --t: 95%; --r: 3%; --a: 10deg; }
+#event-screen .motif-12 { --t: 98%; --l: 7%; --a: -8deg; }
 
 
 /* =========================
@@ -207,74 +203,69 @@ main {
 .access-screen {
   position: relative;
   isolation: isolate;
+  min-height: 100vh;
   min-height: 100svh;
   display: grid;
   place-items: center;
   overflow: hidden;
   padding: 42px 18px 30px;
+  transition: opacity .35s ease;   /* fondu de sortie */
+}
+
+.access-screen.is-leaving {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .access-content {
-  width: min(100%, 520px);
   position: relative;
   z-index: 3;
+  width: min(100%, 520px);
   margin-top: 5vh;
 }
 
-
-/* LOGO AMICALE */
-
-#access-screen .access-logo {
+/* Logo (liseré blanc fin) */
+.access-logo,
+.amicale-logo {
   display: block;
+  object-fit: contain;
+  filter:
+    drop-shadow(.5px 0 0 rgba(255, 255, 255, .7))
+    drop-shadow(0 .5px 0 rgba(255, 255, 255, .7))
+    drop-shadow(0 1px 1px rgba(0, 0, 0, .3));
+}
+
+.access-logo {
   width: min(65vw, 230px);
   max-height: 150px;
-  object-fit: contain;
   margin: 0 auto 22px;
-  filter:
-    drop-shadow(.5px 0 0 rgba(255,255,255,.65))
-    drop-shadow(0 .5px 0 rgba(255,255,255,.65))
-    drop-shadow(0 1px 1px rgba(0,0,0,.3));
 }
 
-
-/* BANDE ROUGE TEXTILE */
+/* Bande rouge textile (partagée avec le bouton et la bande de date) */
+.access-band,
+.access-button,
+.event-band {
+  background-color: var(--red-band);
+  background-image: url('images/bandes-rouges.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
 
 .access-band {
-  position: relative;
-  padding: 4px 8px;
-  text-align: center;
-  background-color: #d51c30;
-  background-image:
-    linear-gradient(rgba(215, 20, 42, .08), rgba(150, 0, 20, .04)),
-    url("images/bandes-rouges.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position: center;
-  border: none;
-  box-shadow: none;
-}
-
-#access-screen .access-band {
   padding: 0 8px;
+  text-align: center;
 }
 
 .brod-texte {
   display: block;
-  width: 100%;
-  max-width: 380px;
+  width: 85%;
+  max-width: 320px;
   height: auto;
   margin: 0 auto;
-  filter: none;
 }
 
-#access-screen .brod-texte {
-  max-width: 320px;
-  width: 85%;
-}
-
-
-/* FORMULAIRE */
-
+/* Formulaire */
 .access-form {
   display: flex;
   flex-direction: column;
@@ -284,14 +275,15 @@ main {
 }
 
 .access-form input {
-  display: block;
   width: 220px;
   max-width: 75%;
-  height: 42px;
+  height: 44px;
   margin: 18px auto;
   padding: 8px 14px;
-  box-sizing: border-box;
-  font-size: 16px;
+  font-size: 16px; /* évite le zoom automatique sur iPhone */
+  color: #1d1d1f;
+  background: #fff;
+  border: 2px solid transparent;
   border-radius: 10px;
 }
 
@@ -300,40 +292,31 @@ main {
   opacity: 1;
 }
 
+.access-form input:focus-visible {
+  border-color: var(--gold);
+  outline: none;
+}
 
-/* BOUTON BRODÉ */
-
-.access-form button.access-button {
+.access-button {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 155px;
-  min-width: 155px;
   min-height: 46px;
   padding: 5px 12px;
-  margin: 0 auto;
-  border: none;
-  border-radius: 0;
-  background-color: #d51c30;
-  background-image: url("images/bandes-rouges.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position: center;
-  box-shadow: none;
+  border: 0;
   cursor: pointer;
 }
 
 .access-button img {
   display: block;
   width: 125px;
-  max-width: 100%;
   height: auto;
   filter: brightness(1.25) grayscale(1) contrast(1.08);
 }
 
-.access-form button.access-button:active {
+.access-button:active {
   transform: translateY(2px);
-  box-shadow: none;
 }
 
 .access-error {
@@ -341,69 +324,76 @@ main {
   margin: -12px 0 0;
   color: #ffd5d5;
   text-align: center;
-  font-size: 13px;
+  font-size: 14px;
 }
-
-
-/* TEXTE BAS DE PAGE CONNEXION */
 
 .access-footnote {
   position: absolute;
-  z-index: 2;
   bottom: 14px;
+  z-index: 2;
   margin: 0;
-  color: rgba(235,239,245,.65);
-  font-size: 11px;
-  letter-spacing: normal;
-  text-transform: none;
-}
-
-
-/* ACCESSIBILITÉ */
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
-
-
-/* SUPPRESSION DES ANCIENNES SURPIQÛRES */
-
-.access-band::before,
-.access-band::after {
-  content: none !important;
-  display: none !important;
-  background: none !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-
-/* ZONE DÉGAGÉE AUTOUR DU FORMULAIRE */
-
-#access-screen .motif-11,
-#access-screen .motif-12 {
-  display: none;
+  color: rgba(235, 239, 245, .7);
+  font-size: 12px;
 }
 
 
 /* =========================
-   PAGE ÉVÉNEMENT
+   BARRE DE NAVIGATION
+========================= */
+
+.section-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 12px;
+  background: rgba(4, 19, 41, .85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(198, 164, 90, .35);
+}
+
+.section-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 14px;
+  color: var(--cream);
+  font-family: 'Champagne Droit', system-ui, sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  letter-spacing: .04em;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: background .2s ease;
+}
+
+.section-nav img {
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+.section-nav a[aria-current="true"] {
+  color: #fff;
+  background: rgba(255, 255, 255, .12);
+  box-shadow: inset 0 -2px 0 var(--gold);
+}
+
+
+/* =========================
+   PAGE ÉVÉNEMENT : EN-TÊTE
 ========================= */
 
 .event-screen {
   position: relative;
   isolation: isolate;
-  width: 100%;
-  padding: 42px 0 34px;
-  animation: page-in .65s ease both;
+  padding: 0 0 34px;
+  overflow-x: clip;
+  animation: fade-in .65s ease both;
 }
 
 .event-header,
@@ -413,44 +403,38 @@ main {
   z-index: 1;
 }
 
-
-/* EN-TÊTE */
-
 .event-header {
+  padding: 54px 20px 28px;
   text-align: center;
-  padding: 12px 20px 28px;
 }
 
 .amicale-logo {
-  display: block;
-  width: min(34vw, 130px);
-  max-height: 120px;
-  object-fit: contain;
-  margin: 0 auto 15px;
-}
-
-#event-screen .amicale-logo {
   width: min(48vw, 180px);
   max-height: 160px;
   margin: 0 auto 30px;
-  filter:
-    drop-shadow(.5px 0 0 rgba(255,255,255,.75))
-    drop-shadow(0 .5px 0 rgba(255,255,255,.75))
-    drop-shadow(0 1px 1px rgba(0,0,0,.3));
 }
 
 .event-header h1 {
   margin: 0;
-  color: #d21d32;
-  font: 400 clamp(42px, 11vw, 64px)/1.05 var(--script);
-  text-shadow: 0 1px 1px rgba(255,255,255,.45);
+  color: var(--red);
+  font: 400 clamp(42px, 11vw, 64px) / 1.05 var(--script);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, .45);
 }
 
-.event-date {
-  margin: 9px 0 0;
-  color: #f2f0ed;
-  font-size: 15px;
-  letter-spacing: .12em;
+/* Bande rouge pleine largeur (annule le padding latéral de l'en-tête) */
+.event-band {
+  margin: 18px -20px 0;
+  padding: 2px 20px;
+  text-align: center;
+}
+
+.event-band img {
+  display: block;
+  width: 62%;
+  max-width: 250px;
+  height: auto;
+  margin: 0 auto;
+  filter: brightness(1.6) grayscale(1);   /* plus blanc : monte la valeur pour blanchir davantage */
 }
 
 
@@ -463,7 +447,7 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 52px;
-  padding: 0 11%;
+  padding: 0 6%;
 }
 
 .event-card {
@@ -472,67 +456,84 @@ main {
   max-width: 560px;
   padding: 34px 20px 28px;
   color: var(--ink);
-  background-color: transparent;
-background-image:
-  linear-gradient(rgba(241, 234, 219, .90), rgba(241, 234, 219, .90)),
-  url("images/fond-tuiles.png");
-  background-size: 100% 100%, cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: url('images/fond-tuiles.png') center / 100% 100% no-repeat;
   border: 1px solid var(--gold);
   border-radius: 13px;
-  box-shadow:
-    0 9px 20px rgba(0,0,0,.34),
-    inset 0 1px 0 rgba(255,255,255,.8);
-  opacity: 0;
-  transform: translateY(18px);
-  animation: card-in .7s ease forwards;
+  box-shadow: 0 9px 20px rgba(0, 0, 0, .34), inset 0 1px 0 rgba(255, 255, 255, .8);
 }
 
+/* Apparition au scroll (la classe .js est posée par script.js : sans JS, les cartes restent visibles) */
+.js .event-card {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.js .event-card.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Broderies sur le contour des cartes (placées dans le HTML, dans .card-motifs).
+   Réglage de chacune via son attribut style : --t (haut), --l ou --r (gauche / droite), --a (inclinaison). */
+.card-motifs {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.card-motifs img {
+  position: absolute;
+  top: var(--t);
+  left: var(--l, auto);
+  right: var(--r, auto);
+  height: auto;
+  transform: rotate(var(--a, 0deg));
+  filter: brightness(1.15) drop-shadow(1px 2px 2px rgba(0, 0, 0, .4));
+}
+
+.cm-casque { width: 34px; }
+.cm-feu    { width: 30px; }
+.cm-camion { width: 46px; }
+.cm-tuyau  { width: 36px; }
+
+/* Double liseré rouge */
 .event-card::before {
   content: '';
   position: absolute;
   inset: 9px;
-  border: 1.5px solid var(--red);
+  border: 2.5px solid var(--red);
   border-radius: 7px;
+  /* second liseré, beaucoup plus fin, ~4 px à l'intérieur du premier */
+  outline: .8px solid var(--red);
+  outline-offset: -7.5px;
   pointer-events: none;
 }
 
-
-/* TITRES DES CARTES */
-
 .card-heading {
-  position: relative;
-  display: block;
-  width: 100%;
   margin: 0 auto 18px;
-  padding: 0;
   color: var(--red);
-  background: transparent;
-  font: 300 clamp(54px, 13vw, 68px)/1.1 var(--script);
+  font: 300 clamp(54px, 13vw, 68px) / 1.1 var(--script);
   text-align: center;
-  left: auto;
-  right: auto;
-  transform: none;
 }
 
-#event-screen #animation-heading {
+#animation-heading {
   font-size: clamp(46px, 11vw, 58px);
 }
 
-#event-screen #animation-heading span {
-  left: 0;
+.card-heading,
+.menu-items,
+.card-body,
+.links-list {
+  position: relative;
+  z-index: 1;
 }
 
 
 /* =========================
    CARTE MENU
 ========================= */
-
-.menu-items {
-  position: relative;
-  z-index: 1;
-}
 
 .menu-item {
   padding: 8px 0 11px;
@@ -542,10 +543,7 @@ background-image:
 .menu-item h3 {
   margin: 0 0 4px;
   color: var(--ink);
-  font-family: 'Magnolia', serif;
-  font-size: 35px;
-  font-weight: 400;
-  line-height: 1.1;
+  font: 400 clamp(30px, 8.5vw, 35px) / 1.1 var(--title);
   letter-spacing: 1px;
   transform: scaleX(1.2);
 }
@@ -553,8 +551,16 @@ background-image:
 .menu-item p {
   margin: 0;
   color: var(--ink);
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.6;
+}
+
+.menu-item p.vegetarian-option {
+  margin-top: 7px;
+  color: var(--veggie);
+  font-size: 16.5px;
+  line-height: 1.5;
+  font-style: italic;
 }
 
 .menu-separator {
@@ -570,16 +576,25 @@ background-image:
 ========================= */
 
 .card-body {
-  position: relative;
-  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 7px 4px;
   text-align: center;
+}
+
+.card-body h3 {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font: 400 clamp(24px, 7.5vw, 32px) / 1.1 var(--title);
+  letter-spacing: 1px;
+  transform: scaleX(1.2);
 }
 
 .card-body p {
   margin: 0;
   color: var(--ink);
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.6;
 }
 
@@ -588,70 +603,75 @@ background-image:
   font-weight: 700;
 }
 
-#event-screen .event-card[aria-labelledby="animation-heading"] .card-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  text-align: center;
-}
-
-#event-screen .event-card[aria-labelledby="animation-heading"] .card-body p,
-#event-screen .event-card[aria-labelledby="animation-heading"] .text-link {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
+.animation-drawing {
+  display: block;
+  width: min(60%, 190px);
+  height: auto;
+  margin: 0 auto 14px;
 }
 
 .text-link {
   display: inline-block;
   margin-top: 13px;
-  color: #8c1725;
+  padding: 6px 4px; /* zone de toucher plus confortable */
+  color: var(--red);
   font-weight: 700;
   text-underline-offset: 3px;
 }
 
 
 /* =========================
-   CARTE LIENS ET LOGOS
+   CARTE LIENS : boutons
 ========================= */
 
 .links-list {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 28px;
-  padding: 12px 5px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 8px 2px;
 }
 
 .links-list a {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  gap: 9px;
-  width: 105px;
+  gap: 10px;
+  min-width: 0;
+  min-height: 64px;
+  padding: 10px 12px;
   color: var(--ink);
-  text-decoration: none;
-  text-align: center;
   font-size: 15px;
+  line-height: 1.25;
+  text-decoration: none;
+  background: rgba(255, 255, 255, .55);
+  border: 1px solid rgba(198, 164, 90, .7);
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(101, 74, 50, .15);
+  transition: background .2s ease, transform .15s ease;
+}
+
+.links-list a:hover  { background: rgba(255, 255, 255, .85); }
+.links-list a:active { transform: scale(.97); }
+
+/* Nombre impair de liens : le dernier est centré */
+.links-list a:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: calc(50% - 6px);
 }
 
 .links-list img {
-  display: block;
-  width: 65px;
-  height: 65px;
+  flex: none;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
-  transition: transform .2s ease;
 }
 
-.links-list a:hover img {
-  transform: scale(1.08);
+/* Texte centré dans l'espace à droite du logo */
+.links-list a span {
+  flex: 1;
+  text-align: center;
 }
+
 
 /* =========================
    PIED DE PAGE
@@ -659,120 +679,9 @@ background-image:
 
 .event-footer {
   padding: 25px 20px 14px;
-  color: rgba(235,239,245,.85);
+  color: rgba(235, 239, 245, .9);
   text-align: center;
   font: 400 17px var(--body);
-  letter-spacing: normal;
-  text-transform: none;
-}
-
-/* =========================
-   RÉPARTITION DES BRODERIES
-   PAGE ÉVÉNEMENT
-========================= */
-
-#event-screen .embroidered-motifs {
-  z-index: 0;
-}
-
-#event-screen .helmet {
-  width: clamp(27px, 7vw, 34px);
-}
-
-#event-screen .flame {
-  width: clamp(24px, 6.5vw, 31px);
-}
-
-#event-screen .truck {
-  width: clamp(31px, 8vw, 38px);
-}
-
-#event-screen .hose {
-  width: clamp(28px, 7vw, 34px);
-}
-
-#event-screen .motif-01 {
-  top: 17%;
-  right: 6%;
-  left: auto;
-  transform: rotate(14deg);
-}
-
-#event-screen .motif-02 {
-  top: 25%;
-  left: 4%;
-  right: auto;
-  transform: rotate(-16deg);
-}
-
-#event-screen .motif-03 {
-  top: 35%;
-  left: 7%;
-  right: auto;
-  transform: rotate(8deg);
-}
-
-#event-screen .motif-04 {
-  top: 43%;
-  right: 3%;
-  left: auto;
-  transform: rotate(-12deg);
-}
-
-#event-screen .motif-05 {
-  top: 52%;
-  right: 8%;
-  left: auto;
-  transform: rotate(17deg);
-}
-
-#event-screen .motif-06 {
-  top: 61%;
-  left: 2%;
-  right: auto;
-  transform: rotate(12deg);
-}
-
-#event-screen .motif-07 {
-  top: 70%;
-  left: 8%;
-  right: auto;
-  transform: rotate(-18deg);
-}
-
-#event-screen .motif-08 {
-  top: 78%;
-  right: 4%;
-  left: auto;
-  transform: rotate(-9deg);
-}
-
-#event-screen .motif-09 {
-  top: 86%;
-  right: 9%;
-  left: auto;
-  transform: rotate(20deg);
-}
-
-#event-screen .motif-10 {
-  top: 90%;
-  left: 5%;
-  right: auto;
-  transform: rotate(-11deg);
-}
-
-#event-screen .motif-11 {
-  top: 95%;
-  right: 3%;
-  left: auto;
-  transform: rotate(10deg);
-}
-
-#event-screen .motif-12 {
-  top: 98%;
-  left: 7%;
-  right: auto;
-  transform: rotate(-8deg);
 }
 
 
@@ -780,33 +689,9 @@ background-image:
    ANIMATIONS
 ========================= */
 
-.event-card:nth-child(1) {
-  animation-delay: .08s;
-}
-
-.event-card:nth-child(2) {
-  animation-delay: .2s;
-}
-
-.event-card:nth-child(3) {
-  animation-delay: .32s;
-}
-
-@keyframes card-in {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes page-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -815,41 +700,7 @@ background-image:
   *::after {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
     scroll-behavior: auto !important;
   }
 }
-
-/* Logo ODP */
-.links-list a:nth-child(3) img {
-  width: 120px;
-  height: 120px;
-  max-width: none;
-  transform: translateY(-28px);
-}
-
-.links-list a:nth-child(3):hover img {
-  transform: translateY(-30px) scale(1.08);
-}
-
-/* Intitulé ODP */
-.links-list a:nth-child(3) span {
-  transform: translateY(-60px);
-}
-
-/* Léger contour doré du logo DJ */
-.links-list a:nth-child(5) img {
-  filter:
-    drop-shadow(0 0 0.5px #b99a62)
-    drop-shadow(0 0 0.5px #b99a62);
-}
-
-/* Alternatives végétariennes */
-.menu-item p.vegetarian-option {
-  margin-top: 7px;
-  color: #B08A45;
-  font-family: 'Champagne', sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-  font-style: italic;
-}
-
