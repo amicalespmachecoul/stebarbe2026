@@ -1,5 +1,6 @@
 /* =========================
    POLICES
+   (noms de fichiers sans espace ni « & » : renommer les fichiers du dossier fonts/)
 ========================= */
 
 @font-face {
@@ -10,14 +11,14 @@
 
 @font-face {
   font-family: 'Champagne';
-  src: url('fonts/Champagne & Limousines Italic.ttf') format('truetype');
+  src: url('fonts/champagne-italic.ttf') format('truetype');
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Champagne Droit';
-  src: url('fonts/Champagne & Limousines.ttf') format('truetype');
+  src: url('fonts/champagne.ttf') format('truetype');
   font-style: normal;
   font-display: swap;
 }
@@ -36,8 +37,7 @@
 :root {
   --navy: #071b3a;
   --navy-deep: #041329;
-  --red: #9b2722;
-  --red-band: var(--red);
+  --red: #bb2721;
   --gold: #c6a45a;
   --cream: #f1eadb;
   --ink: #5a4029;
@@ -61,6 +61,11 @@
 
 [hidden] {
   display: none !important;
+}
+
+/* Invité déjà déverrouillé : l'écran d'accès n'apparaît jamais (classe posée dans le <head>) */
+.unlocked #access-screen {
+  display: none;
 }
 
 html {
@@ -108,13 +113,9 @@ img {
   outline-offset: 3px;
 }
 
-[tabindex="-1"]:focus {
-  outline: none;
-}
-
-/* Le titre reçoit le focus par programme après la saisie du code : pas de contour */
-#event-title:focus,
-#event-title:focus-visible {
+/* Éléments qui reçoivent le focus par programme (ex. le titre après la saisie du code) : pas de contour */
+[tabindex="-1"]:focus,
+[tabindex="-1"]:focus-visible {
   outline: none;
 }
 
@@ -167,7 +168,7 @@ img {
 #event-screen .truck  { width: clamp(38px, 9.5vw, 48px); }
 #event-screen .hose   { width: clamp(32px, 8.5vw, 42px); }
 
-/* Positions : page d'accès (les motifs 11 et 12 sont masqués pour dégager le formulaire) */
+/* Positions : page d'accès */
 #access-screen .motif-01 { --t: 5%;  --l: 7%;   --a: -13deg; }
 #access-screen .motif-02 { --t: 12%; --l: 43%;  --a: 5deg; }
 #access-screen .motif-03 { --t: 6%;  --r: 7%;   --a: 3deg; }
@@ -178,8 +179,6 @@ img {
 #access-screen .motif-08 { --t: 76%; --r: 7%;   --a: -5deg; }
 #access-screen .motif-09 { --t: 88%; --l: 42%;  --a: -20deg; }
 #access-screen .motif-10 { --t: 91%; --r: 12%;  --a: 8deg; }
-#access-screen .motif-11,
-#access-screen .motif-12 { display: none; }
 
 /* Positions : page événement */
 #event-screen .motif-01 { --t: 17%; --r: 6%; --a: 14deg; }
@@ -245,7 +244,7 @@ img {
 .access-band,
 .access-button,
 .event-band {
-  background-color: var(--red-band);
+  background-color: var(--red);
   background-image: url('images/bandes-rouges.jpg');
   background-repeat: no-repeat;
   background-position: center;
@@ -363,7 +362,6 @@ img {
   padding: 0 14px;
   color: var(--cream);
   font-family: 'Champagne Droit', system-ui, sans-serif;
-  font-style: normal;
   font-size: 16px;
   letter-spacing: .04em;
   text-decoration: none;
@@ -462,7 +460,7 @@ img {
   box-shadow: 0 9px 20px rgba(0, 0, 0, .34), inset 0 1px 0 rgba(255, 255, 255, .8);
 }
 
-/* Apparition au scroll (la classe .js est posée par script.js : sans JS, les cartes restent visibles) */
+/* Apparition au scroll (la classe .js est posée dans le <head> : sans JS, les cartes restent visibles) */
 .js .event-card {
   opacity: 0;
   transform: translateY(24px);
@@ -522,12 +520,35 @@ img {
   font-size: clamp(46px, 11vw, 58px);
 }
 
+/* Carte Menu : le sous-titre « Servi par… » se rapproche du titre */
+#menu .card-heading {
+  margin-bottom: -12px;
+}
+
 .card-heading,
 .menu-items,
 .card-body,
 .links-list {
   position: relative;
   z-index: 1;
+}
+
+
+/* =========================
+   TEXTE « ORCHESTRE / TRAITEUR » (Menu et Animation)
+========================= */
+
+.orchestra-text {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 19px;
+  font-style: italic;
+}
+
+#menu > .orchestra-text {
+  margin: 0 0 20px;
+  text-align: center;
 }
 
 
@@ -591,16 +612,21 @@ img {
   transform: scaleX(1.2);
 }
 
-.card-body p {
-  margin: 0;
+.card-body .time-label {
+  margin: 8px 0 0;
   color: var(--ink);
-  font-size: 18px;
-  line-height: 1.6;
+  font-family: 'Champagne Droit', Georgia, serif;
+  font-size: 15px;
+  letter-spacing: 3px;
 }
 
-.card-body .placeholder-strong {
-  margin-bottom: 7px;
-  font-weight: 700;
+.card-body .time-value {
+  margin: 2px 0 14px;
+  color: var(--red);
+  font-family: var(--title);
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: 1px;
 }
 
 .animation-drawing {
@@ -609,7 +635,6 @@ img {
   height: auto;
   margin: 0 auto 14px;
 }
-
 
 
 /* =========================
@@ -661,6 +686,7 @@ img {
 /* Texte centré dans l'espace à droite du logo */
 .links-list a span {
   flex: 1;
+  font-family: 'Champagne Droit', Georgia, serif;
   text-align: center;
 }
 

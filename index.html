@@ -5,8 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#071b3a">
   <meta name="robots" content="noindex, nofollow">
-  <title>Événement de l'Amicale</title>
+  <title>Sainte Barbe 2026</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚒%3C/text%3E%3C/svg%3E">
+
+  <!-- Exécuté avant l'affichage : évite le flash de l'écran d'accès pour un invité déjà
+       déverrouillé, et indique au CSS que JavaScript fonctionne (apparition des cartes). -->
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      if (sessionStorage.getItem('event-unlocked') === '1') {
+        document.documentElement.classList.add('unlocked');
+      }
+    } catch (e) { /* stockage bloqué : sans importance */ }
+  </script>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -27,8 +39,6 @@
         <img class="motif truck motif-08" src="images/brod-camion.png" alt="">
         <img class="motif flame motif-09" src="images/brod-feu1.png" alt="">
         <img class="motif helmet motif-10" src="images/brod-casque.png" alt="">
-        <img class="motif hose motif-11" src="images/brod-tuyau.png" alt="">
-        <img class="motif flame motif-12" src="images/brod-feu2.png" alt="">
       </div>
 
       <div class="access-content">
@@ -72,10 +82,10 @@
     <section id="event-screen" class="event-screen" hidden>
 
       <nav class="section-nav" aria-label="Sections de la page">
-  <a href="#menu"><img src="images/nav-menu.png" alt="">Menu</a>
-  <a href="#animation"><img src="images/nav-animation.png" alt="">Animation</a>
-  <a href="#liens"><img src="images/nav-liens.png" alt="">Liens</a>
-</nav>
+        <a href="#menu"><img src="images/nav-menu.png" alt="">Menu</a>
+        <a href="#animation"><img src="images/nav-animation.png" alt="">Animation</a>
+        <a href="#liens"><img src="images/nav-liens.png" alt="">Liens</a>
+      </nav>
 
       <div class="embroidered-motifs" aria-hidden="true">
         <img class="motif helmet motif-01" src="images/brod-casque.png" alt="" loading="lazy">
@@ -93,10 +103,10 @@
       </div>
 
       <header class="event-header">
-        <img id="amicale-logo" class="amicale-logo" src="images/brod-amicale.png" alt="Logo de l'amicale">
-        <h1 id="event-title">Nom de l’événement</h1>
+        <img class="amicale-logo" src="images/brod-amicale.png" alt="Logo de l'amicale">
+        <h1 id="event-title">Sainte Barbe 2026</h1>
         <div class="event-band">
-          <img id="event-date" src="images/brod-date.png" alt="Samedi 9 janvier 2027">
+          <img src="images/brod-date.png" alt="Samedi 9 janvier 2027">
         </div>
       </header>
 
@@ -118,77 +128,78 @@
 
           <!-- Lettre décorative (police Hello) : le vrai nom est donné par aria-label -->
           <h2 id="menu-heading" class="card-heading" aria-label="Menu"><span>en</span></h2>
+          <p class="orchestra-text">Servi par le Traiteur Soullandais</p>
 
           <div class="menu-items">
 
-  <div class="menu-item">
-    <h3>Apéritif</h3>
-    <p>[Boisson 1]</p>
-    <p>[Boisson 2]</p>
-   </div>
+            <div class="menu-item">
+              <h3>Apéritif</h3>
+              <p>[Boisson 1]</p>
+              <p>[Boisson 2]</p>
+            </div>
 
-  <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
+            <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
 
-  <div class="menu-item">
-    <h3>Entrée</h3>
-    <p>Assiette Terre &amp; Mer</p>
-    <p>Éventail de magret de canard fumé &amp; saumon fumé maison, crème ciboulette</p>
-    <p class="vegetarian-option">Menu végétarien : Tarte fine de légumes provençaux, tomates séchées, copeaux de parmesan et herbes fraîches</p>
-  </div>
+            <div class="menu-item">
+              <h3>Entrée</h3>
+              <p>Assiette Terre &amp; Mer</p>
+              <p>Éventail de magret de canard fumé &amp; saumon fumé maison, crème ciboulette</p>
+              <p class="vegetarian-option">Menu végétarien : Tarte fine de légumes provençaux, tomates séchées, copeaux de parmesan et herbes fraîches</p>
+            </div>
 
-  <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
+            <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
 
-  <div class="menu-item">
-    <h3>Poisson</h3>
-    <p>Papillote de rouget &amp; ses petits légumes de saison</p>
-    <p class="vegetarian-option">Menu végétarien : Brochette d'artichaut aux 2 carottes, crème d'échalote truffée</p>
-  </div>
+            <div class="menu-item">
+              <h3>Poisson</h3>
+              <p>Papillote de rouget &amp; ses petits légumes de saison</p>
+              <p class="vegetarian-option">Menu végétarien : Brochette d'artichaut aux 2 carottes, crème d'échalote truffée</p>
+            </div>
 
-  <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
+            <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
 
-  <div class="menu-item">
-    <h3>Trou Normand</h3>
-    <p>Sorbet ananas et liqueur Malibu</p>
-  </div>
+            <div class="menu-item">
+              <h3>Trou Normand</h3>
+              <p>Sorbet ananas et liqueur Malibu</p>
+            </div>
 
-  <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
+            <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
 
-  <div class="menu-item">
-    <h3>Viande</h3>
-    <p>Suprême de volaille au brie truffé &amp; sa pomme de terre farcie</p>
-    <p class="vegetarian-option">Menu végétarien : Croustade aux champignons et sa mini farandole de légumes</p>
-  </div>
+            <div class="menu-item">
+              <h3>Viande</h3>
+              <p>Suprême de volaille au brie truffé &amp; sa pomme de terre farcie</p>
+              <p class="vegetarian-option">Menu végétarien : Croustade aux champignons et sa mini farandole de légumes</p>
+            </div>
 
-  <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
+            <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
 
-  <div class="menu-item">
-    <h3>Fromage</h3>
-    <p>Assiette de fromages affinés &amp; salade verte</p>
-  </div>
+            <div class="menu-item">
+              <h3>Fromage</h3>
+              <p>Assiette de fromages affinés &amp; salade verte</p>
+            </div>
 
-  <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
+            <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
 
-  <div class="menu-item">
-    <h3>Dessert</h3>
-    <p>Trilogie sucrée</p>
-    <p>Soupe mandarine, chou craquelin vanille, mousse au chocolat</p>
-  </div>
+            <div class="menu-item">
+              <h3>Dessert</h3>
+              <p>Trilogie sucrée</p>
+              <p>Soupe mandarine, chou craquelin vanille, mousse au chocolat</p>
+            </div>
 
-  <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
+            <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
 
-  <div class="menu-item">
-    <h3>Café</h3>
-  </div>
+            <div class="menu-item">
+              <h3>Café</h3>
+            </div>
 
-  <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
+            <img src="images/ligne.png" alt="" class="menu-separator" loading="lazy">
 
-  <div class="menu-item">
-    <h3>Vins</h3>
-    <p>Blanc : [nom du vin]</p>
-    <p>Rouge : [nom du vin]</p>
-  </div>
+            <div class="menu-item">
+              <h3>Vins</h3>
+              <p>Blanc : [nom du vin]</p>
+              <p>Rouge : [nom du vin]</p>
+            </div>
 
-</div>
+          </div>
         </section>
 
 
@@ -203,10 +214,11 @@
           <h2 id="animation-heading" class="card-heading" aria-label="Animation"><span>nimatio</span></h2>
 
           <div class="card-body">
-	    <img class="animation-drawing" src="images/dessin-animation.png" alt="" loading="lazy">
+            <img class="animation-drawing" src="images/dessin-animation.png" alt="" loading="lazy">
             <h3>Soirée dansante</h3>
-	    <p class="placeholder-strong">À partir de [heure]</p>
-            <p>Avec [nom de l’orchestre]</p>
+            <div class="time-label">à partir de</div>
+            <p class="time-value">20h00</p>
+            <p class="orchestra-text">Animée par Tem'Pow</p>
           </div>
 
         </section>
@@ -225,29 +237,29 @@
           <!-- alt="" sur les logos : le texte à côté suffit -->
           <nav class="links-list" aria-label="Liens utiles">
 
-            <a href="#" target="_blank" rel="noopener">
+            <a href="https://www.facebook.com/profile.php?id=100083337247301" target="_blank" rel="noopener">
               <img src="images/logo-fb.png" alt="" loading="lazy">
               <span>Facebook de l'Amicale</span>
             </a>
 
-            <a href="#" target="_blank" rel="noopener">
+            <a href="https://www.instagram.com/amicalespmachecoul" target="_blank" rel="noopener">
               <img src="images/logo-insta.png" alt="" loading="lazy">
               <span>Instagram de l'Amicale</span>
             </a>
 
-            <a href="#" target="_blank" rel="noopener">
+            <a href="https://www.pompiers.fr/oeuvre-des-pupilles/" target="_blank" rel="noopener">
               <img src="images/logo-odp.png" alt="" loading="lazy">
               <span>Œuvre des Pupilles</span>
             </a>
 
-            <a href="#" target="_blank" rel="noopener">
+            <a href="https://www.traiteursoullandais.com/" target="_blank" rel="noopener">
               <img src="images/logo-traiteur.png" alt="" loading="lazy">
-              <span>Le traiteur</span>
+              <span>Le Traiteur Soullandais</span>
             </a>
 
-            <a href="#" target="_blank" rel="noopener">
+            <a href="https://www.tem-pow.fr/" target="_blank" rel="noopener">
               <img src="images/logo-dj.png" alt="" loading="lazy">
-              <span>Notre DJ</span>
+              <span>DJ Tem'Pow</span>
             </a>
 
           </nav>
@@ -257,7 +269,7 @@
       </div>
 
 
-      <footer class="event-footer">Au plaisir de vous retrouver !</footer>
+      <footer class="event-footer">Le CIS Machecoul vous remercie pour votre présence !</footer>
 
     </section>
 

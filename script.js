@@ -1,34 +1,13 @@
 /* =========================
-   RÉGLAGES À MODIFIER
+   RÉGLAGE À MODIFIER
 ========================= */
 
 // Code d'accès à communiquer aux invités.
 // Court, sans accent. Majuscules, espaces autour et accents sont ignorés à la saisie.
+// Attention : ce code est lisible par quiconque ouvre ce fichier (filtre « convivial » seulement).
 const ACCESS_CODE = 'TEST';
 
-const EVENT_TEXT = {
-  title: 'Sainte Barbe 2026',
-
-  ballTime: 'À partir de 20h00',
-  orchestra: "Animée par Tem'Pow",
-
-  footer: 'Le CIS Machecoul vous remercie pour votre présence !'
-};
-
-// Liens : la clé est un morceau du nom du fichier logo (images/logo-XXX.png).
-// L'ordre des liens dans le HTML n'a donc plus d'importance.
-const LINKS = {
-  'logo-fb':      'https://www.facebook.com/profile.php?id=100083337247301',
-  'logo-insta':   'https://www.instagram.com/amicalespmachecoul',
-  'logo-odp':     'https://www.pompiers.fr/oeuvre-des-pupilles/',
-  'logo-traiteur': 'https://www.traiteursoullandais.com/',
-  'logo-dj':      'https://www.tem-pow.fr/'
-};
-
-
-
-// Indique au CSS que JavaScript fonctionne (active l'apparition des cartes au scroll).
-document.documentElement.classList.add('js');
+// Tous les textes (titre, horaire, orchestre, liens, pied de page) se modifient dans index.html.
 
 
 /* =========================
@@ -36,12 +15,6 @@ document.documentElement.classList.add('js');
 ========================= */
 
 const $ = (selector) => document.querySelector(selector);
-
-// Remplit un texte sans jamais planter si l'élément n'existe pas.
-function setText(selector, text) {
-  const el = $(selector);
-  if (el) el.textContent = text;
-}
 
 // Normalise un code : sans espaces autour, sans accents, en minuscules.
 function normalize(value) {
@@ -52,8 +25,9 @@ function normalize(value) {
     .toLowerCase();
 }
 
-// Mémorise le déverrouillage pour la session (rechargement de page, retour depuis un lien).
-// Entouré de try/catch : le stockage peut être bloqué (navigation privée, etc.).
+// Mémorise le déverrouillage pour la session (rechargement, retour depuis un lien).
+// try/catch : le stockage peut être bloqué (navigation privée, etc.).
+// La clé est aussi lue par le petit script placé dans le <head> de index.html.
 const STORAGE_KEY = 'event-unlocked';
 
 function isRemembered() {
@@ -74,35 +48,6 @@ function remember() {
 
 
 /* =========================
-   AFFICHAGE DES INFORMATIONS
-========================= */
-
-document.title = EVENT_TEXT.title;
-setText('#event-title', EVENT_TEXT.title);
-setText('.card-body .placeholder-strong', EVENT_TEXT.ballTime);
-setText('.card-body p:not(.placeholder-strong)', EVENT_TEXT.orchestra);
-setText('.event-footer', EVENT_TEXT.footer);
-
-// Liens utiles : on retrouve chaque lien grâce au nom du logo qu'il contient.
-for (const [logoName, url] of Object.entries(LINKS)) {
-  const link = $(`.links-list img[src*="${logoName}"]`)?.closest('a');
-  if (link) link.href = url;
-}
-
-// Les titres des cartes utilisent des lettres décoratives (police Hello) :
-// on donne leur vrai nom aux lecteurs d'écran.
-const HEADING_LABELS = {
-  '#menu-heading': 'Menu',
-  '#animation-heading': 'Animation',
-  '#links-heading': 'Liens'
-};
-
-for (const [selector, label] of Object.entries(HEADING_LABELS)) {
-  $(selector)?.setAttribute('aria-label', label);
-}
-
-
-/* =========================
    DÉVERROUILLAGE DE LA PAGE
 ========================= */
 
@@ -111,13 +56,6 @@ const eventScreen = $('#event-screen');
 const accessForm = $('#access-form');
 const accessInput = $('#access-code');
 const accessError = $('#access-error');
-
-// Évite la majuscule automatique et la correction sur mobile.
-if (accessInput) {
-  accessInput.setAttribute('autocapitalize', 'off');
-  accessInput.setAttribute('autocorrect', 'off');
-  accessInput.setAttribute('spellcheck', 'false');
-}
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -211,5 +149,7 @@ if ('IntersectionObserver' in window && navLinks.length) {
     }
   }, { rootMargin: '-40% 0px -55% 0px' });
 
-  document.querySelectorAll('.event-card[id]').forEach((section) => sectionObserver.observe(section));
+  cards.forEach((card) => {
+    if (card.id) sectionObserver.observe(card);
+  });
 }
