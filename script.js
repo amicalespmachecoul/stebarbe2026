@@ -25,7 +25,6 @@ const LINKS = {
   'logo-dj':      'https://www.tem-pow.fr/'
 };
 
-const ORCHESTRA_URL = 'https://www.tem-pow.fr/';
 
 
 // Indique au CSS que JavaScript fonctionne (active l'apparition des cartes au scroll).
@@ -83,9 +82,6 @@ setText('#event-title', EVENT_TEXT.title);
 setText('.card-body .placeholder-strong', EVENT_TEXT.ballTime);
 setText('.card-body p:not(.placeholder-strong)', EVENT_TEXT.orchestra);
 setText('.event-footer', EVENT_TEXT.footer);
-
-const orchestraLink = $('.text-link');
-if (orchestraLink) orchestraLink.href = ORCHESTRA_URL;
 
 // Liens utiles : on retrouve chaque lien grâce au nom du logo qu'il contient.
 for (const [logoName, url] of Object.entries(LINKS)) {

@@ -610,14 +610,6 @@ img {
   margin: 0 auto 14px;
 }
 
-.text-link {
-  display: inline-block;
-  margin-top: 13px;
-  padding: 6px 4px; /* zone de toucher plus confortable */
-  color: var(--red);
-  font-weight: 700;
-  text-underline-offset: 3px;
-}
 
 
 /* =========================
