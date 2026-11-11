@@ -7,18 +7,6 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Sainte Barbe 2026</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚒%3C/text%3E%3C/svg%3E">
-
-  <!-- Exécuté avant l'affichage : évite le flash de l'écran d'accès pour un invité déjà
-       déverrouillé, et indique au CSS que JavaScript fonctionne (apparition des cartes). -->
-  <script>
-    document.documentElement.classList.add('js');
-    try {
-      if (sessionStorage.getItem('event-unlocked') === '1') {
-        document.documentElement.classList.add('unlocked');
-      }
-    } catch (e) { /* stockage bloqué : sans importance */ }
-  </script>
-
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -39,6 +27,8 @@
         <img class="motif truck motif-08" src="images/brod-camion.png" alt="">
         <img class="motif flame motif-09" src="images/brod-feu1.png" alt="">
         <img class="motif helmet motif-10" src="images/brod-casque.png" alt="">
+        <img class="motif hose motif-11" src="images/brod-tuyau.png" alt="">
+        <img class="motif flame motif-12" src="images/brod-feu2.png" alt="">
       </div>
 
       <div class="access-content">
@@ -128,7 +118,7 @@
 
           <!-- Lettre décorative (police Hello) : le vrai nom est donné par aria-label -->
           <h2 id="menu-heading" class="card-heading" aria-label="Menu"><span>en</span></h2>
-          <p class="orchestra-text">Servi par le Traiteur Soullandais</p>
+          <p class="menu-credit">Servi par le Traiteur Soullandais</p>
 
           <div class="menu-items">
 
@@ -217,8 +207,8 @@
             <img class="animation-drawing" src="images/dessin-animation.png" alt="" loading="lazy">
             <h3>Soirée dansante</h3>
             <div class="time-label">à partir de</div>
-            <p class="time-value">20h00</p>
-            <p class="orchestra-text">Animée par Tem'Pow</p>
+            <p class="start-time">20h00</p>
+            <p class="dj-text">Animée par Tem’Pow</p>
           </div>
 
         </section>
@@ -259,7 +249,7 @@
 
             <a href="https://www.tem-pow.fr/" target="_blank" rel="noopener">
               <img src="images/logo-dj.png" alt="" loading="lazy">
-              <span>DJ Tem'Pow</span>
+              <span>DJ Tem’Pow</span>
             </a>
 
           </nav>

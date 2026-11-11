@@ -1,13 +1,13 @@
 /* =========================
-   RÉGLAGE À MODIFIER
+   CODE D'ACCÈS
 ========================= */
 
-// Code d'accès à communiquer aux invités.
+// Seul réglage de ce fichier. Tous les textes et les liens se modifient dans index.html.
 // Court, sans accent. Majuscules, espaces autour et accents sont ignorés à la saisie.
-// Attention : ce code est lisible par quiconque ouvre ce fichier (filtre « convivial » seulement).
 const ACCESS_CODE = 'TEST';
 
-// Tous les textes (titre, horaire, orchestre, liens, pied de page) se modifient dans index.html.
+// Indique au CSS que JavaScript fonctionne (active l'apparition des cartes au scroll).
+document.documentElement.classList.add('js');
 
 
 /* =========================
@@ -25,9 +25,8 @@ function normalize(value) {
     .toLowerCase();
 }
 
-// Mémorise le déverrouillage pour la session (rechargement, retour depuis un lien).
-// try/catch : le stockage peut être bloqué (navigation privée, etc.).
-// La clé est aussi lue par le petit script placé dans le <head> de index.html.
+// Mémorise le déverrouillage pour la session (rechargement de page, retour depuis un lien).
+// Entouré de try/catch : le stockage peut être bloqué (navigation privée, etc.).
 const STORAGE_KEY = 'event-unlocked';
 
 function isRemembered() {
@@ -149,7 +148,5 @@ if ('IntersectionObserver' in window && navLinks.length) {
     }
   }, { rootMargin: '-40% 0px -55% 0px' });
 
-  cards.forEach((card) => {
-    if (card.id) sectionObserver.observe(card);
-  });
+  document.querySelectorAll('.event-card[id]').forEach((section) => sectionObserver.observe(section));
 }
