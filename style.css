@@ -10,14 +10,14 @@
 
 @font-face {
   font-family: 'Champagne';
-  src: url('fonts/Champagne & Limousines Italic.ttf') format('truetype');
+  src: url('fonts/champagne-italic.ttf') format('truetype');
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Champagne Droit';
-  src: url('fonts/Champagne & Limousines.ttf') format('truetype');
+  src: url('fonts/champagne.ttf') format('truetype');
   font-style: normal;
   font-display: swap;
 }
